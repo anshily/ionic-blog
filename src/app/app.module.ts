@@ -9,12 +9,18 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {MarkdownModule} from "ngx-markdown";
+import {RainbowPage} from "../pages/rainbow/rainbow";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {BrowserTab} from "@ionic-native/browser-tab";
+import {AppMinimize} from "@ionic-native/app-minimize";
+import {BackButtonProvider} from "../providers/back-button/back-button";
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    RainbowPage
   ],
   imports: [
     BrowserModule,
@@ -25,11 +31,16 @@ import {MarkdownModule} from "ngx-markdown";
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    RainbowPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
+    BrowserTab,
+    AppMinimize,
+    BackButtonProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

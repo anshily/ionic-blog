@@ -18,5 +18,16 @@
     If you get lost, the <a href="http://ionicframework.com/docs/v2">ionic docs</a> will show you the way.
   </p>
 
+
+  <ion-label>statusBar Test</ion-label>
+
+  <ion-list>
+    <button ion-item (click)="switchStatusBar('BlackTranslucent')">BlackTranslucent</button>
+    <button ion-item (click)="switchStatusBar('LightContent')">LightContent</button>
+    <button ion-item (click)="switchStatusBar('BlackOpaque')">BlackOpaque</button>
+    <button ion-item (click)="switchStatusBar('show')">show</button>
+    <button ion-item (click)="switchStatusBar('hide')">hide</button>
+  </ion-list>
+
   <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
 </ion-content>
