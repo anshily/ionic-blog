@@ -56,6 +56,8 @@
 
 <ion-content>
 
+  <!--<img [src]="srctest" alt="">-->
+
   <!--<div padding ion-fixed style="width: 100%;background-color: red;">-->
     <!--<ion-segment [(ngModel)]="pet">-->
       <!--<ion-segment-button>menu</ion-segment-button>-->
@@ -81,7 +83,12 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'kittens'">
-      ttt
+      <ion-card *ngFor="let item of biaobaiList">
+        <qzone-emotion [emotion]="item">
+
+        </qzone-emotion>
+        <!--<div [innerHTML]="parseHtml.strDiscode(item.content)"></div>-->
+      </ion-card>
       <!--<button ion-item *ngFor="let item of favorite" (click)="browMusic(item.url)">-->
       <!--{{ item.title }}-->
       <!--</button>-->

@@ -14,16 +14,32 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {BrowserTab} from "@ionic-native/browser-tab";
 import {AppMinimize} from "@ionic-native/app-minimize";
 import {BackButtonProvider} from "../providers/back-button/back-button";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { ParseHtmlProvider } from '../providers/parse-html/parse-html';
+import {ComponentsModule} from "../components/components.module";
+import { SweetNetProvider } from '../providers/sweet-net/sweet-net';
+import { QzoneImageDealProvider } from '../providers/qzone-image-deal/qzone-image-deal';
+import {PreviewImagePage} from "../pages/preview-image/preview-image";
+import {TestpipePipe} from "../pipes/testpipe/testpipe";
+
+const INTERCEPTOR_PROVIDES = [
+  { provide: HTTP_INTERCEPTORS, useClass: SweetNetProvider, multi: true},
+  // { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true}
+];
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    RainbowPage
+    RainbowPage,
+    PreviewImagePage,
+    TestpipePipe
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    ComponentsModule,
     MarkdownModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
@@ -32,7 +48,8 @@ import {BackButtonProvider} from "../providers/back-button/back-button";
     MyApp,
     HomePage,
     ListPage,
-    RainbowPage
+    RainbowPage,
+    PreviewImagePage
   ],
   providers: [
     StatusBar,
@@ -41,7 +58,11 @@ import {BackButtonProvider} from "../providers/back-button/back-button";
     BrowserTab,
     AppMinimize,
     BackButtonProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    // HttpClient
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ParseHtmlProvider,
+    // ...INTERCEPTOR_PROVIDES,
+    QzoneImageDealProvider
   ]
 })
 export class AppModule {}

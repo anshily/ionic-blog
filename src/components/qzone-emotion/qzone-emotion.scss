@@ -1,0 +1,52 @@
+qzone-emotion {
+  //
+  //.emotion-item{
+  //  /* display: flex;
+  //  flex-direction: row; */
+  //  margin: 10px;
+  //  /* border-bottom:2rpx solid #D1D1D1; */
+  //  font-size:25px;
+  //}
+  .author{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .author-img{
+    height:30px;
+    width:30px;
+    margin:15px;
+    border-radius: 50%;
+  }
+  .author-name{
+    display: flex;
+    margin-top:35px;
+  }
+  .emotion-body{
+    display: flex;
+    flex-direction: column;
+    font-weight:300;
+    margin: 15px;
+  }
+  .img-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .upload-img{
+    width: 100px;
+    height: 100px;
+    margin: 2px;
+    object-fit: cover;
+  }
+  .comment{
+    display: flex;
+    flex-direction: row;
+  }
+  .comment-name{
+    color: blueviolet;
+  }
+  .comment-content{
+    /* color: wheat; */
+  }
+
+}

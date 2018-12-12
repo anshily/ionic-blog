@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {InAppBrowser, InAppBrowserOptions} from "@ionic-native/in-app-browser";
 import {BrowserTab} from "@ionic-native/browser-tab";
+import {HttpClient} from "@angular/common/http";
+import {ParseHtmlProvider} from "../../providers/parse-html/parse-html";
 
+declare var ROOT_URL;
 
 /**
  * Generated class for the RainbowPage page.
@@ -17,6 +20,7 @@ import {BrowserTab} from "@ionic-native/browser-tab";
   templateUrl: 'rainbow.html',
 })
 export class RainbowPage {
+  biaobaiList = [];
 
   favorite = [
     {
@@ -245,11 +249,46 @@ export class RainbowPage {
     }
     ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser,private browserTab: BrowserTab) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private iab: InAppBrowser,
+              private browserTab: BrowserTab,
+              private http: HttpClient,
+              private parseHtml: ParseHtmlProvider) {
   }
+
+  srctest = ROOT_URL + '/sys/picture?url='+ encodeURIComponent('http://b19.photo.store.qq.com/psb?/V11Xtz6l1embFM/qclOwClV.YrQxM6pWmyM8EGOas4fC01aG4V4.CodSFs!/b/dBMAAAAAAAAA&amp;bo=hwOTA4cDkwMRECc!');
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RainbowPage');
+    this.getRemoteData();
+
+    // this.http.get("http://b19.photo.store.qq.com/psb?/V11Xtz6l1embFM/qclOwClV.YrQxM6pWmyM8EGOas4fC01aG4V4.CodSFs!/b/dBMAAAAAAAAA&amp;bo=hwOTA4cDkwMRECc!").subscribe(res => {
+    //   console.log(res);
+    // })
+    //
+    // this.http.get('https://github.com/fatedier/frp/blob/master/README_zh.md').subscribe(res => {
+    //   console.log(res)
+    // })
+  }
+
+  getRemoteData(params = {}){
+    this.http.post(ROOT_URL + "/sys/sweet/wall/list?page=1",{params: params}).subscribe(res => {
+      console.log(res);
+      if (res['code'] == 0){
+        this.biaobaiList = res['data']['list'];
+
+        this.biaobaiList.map(item => {
+          // item.createTime = timestampToTime(item.createTime.$date);
+          item.content = item.content;
+          item.authorImg = 'assets/imgs/biaobai.jpg';
+          item.authorName = '表白墙';
+          item.info = JSON.parse(item.info)
+          console.log(item)
+          return item;
+        })
+      }
+    })
   }
 
   browserOptions: InAppBrowserOptions = {
@@ -308,3 +347,4 @@ export class RainbowPage {
   pet = 'puppies'
 
 }
+

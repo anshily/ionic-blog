@@ -1,0 +1,46 @@
+<!--component/emotion/emotion.wxml-->
+<div class='emotion-item'>
+  <div class='author'>
+    <img  class='author-img' [src]='emotion.authorImg'>
+
+    <div [innerHTML]="parseHtml.strDiscode(emotion.author)"></div>
+    <!--<rich-text nodes='{{emotion.author}}'></rich-text>-->
+  </div>
+  <div class='emotion-body'>
+    <!-- <rich-text nodes='{{emotion.author}}'></rich-text> -->
+    <!-- <view class='author-name'>{{emotion.info.name}}</view> -->
+    <div  class='emotion-content'>
+      <!--<rich-text nodes='{{emotion.content}}'></rich-text>-->
+      <div [innerHTML]="parseHtml.strDiscode(emotion.content)"></div>
+
+      <div class="img-wrapper">
+
+        <!--<div *ngFor="let item of emotion.info.video">-->
+          <!--<img class='upload-img' [src]="imgUtil.deal(item.url1)" >-->
+        <!--</div>-->
+
+        <div *ngFor="let item of emotion.info.pic">
+          <img class='upload-img' *ngIf="!item.is_video" [src]="imgUtil.deal(item.smallurl)" (click)="previewImage(item.smallurl)" >
+          <img *ngIf="item.is_video" class='upload-img' [src]="imgUtil.deal(item.url1)" (click)="previewImage(item.url1)">
+        </div>
+
+      </div>
+
+
+      <div>
+        <div class='comment' *ngFor="let item of emotion.info.commentlist">
+          <div class='comment-name' [innerHTML]="parseHtml.strDiscode(item.name)"></div> ：
+
+          <div class='comment-content' [innerHTML]="parseHtml.strDiscode(item.content)"></div>
+
+          <!--<rich-text class='comment-name' nodes='{{item.name}}'></rich-text>：-->
+          <!--<rich-text class='comment-content' nodes='{{item.content}}'></rich-text>-->
+        </div>
+        <!-- <block >
+
+          <br/>
+        </block> -->
+      </div>
+    </div>
+  </div>
+</div>
