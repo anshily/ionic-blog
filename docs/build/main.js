@@ -326,6 +326,7 @@ var RainbowPage = /** @class */ (function () {
         this.http = http;
         this.parseHtml = parseHtml;
         this.biaobaiList = [];
+        this.uinImgMap = new Map();
         this.favorite = [
             {
                 title: '无与伦比的美丽',
@@ -557,6 +558,8 @@ var RainbowPage = /** @class */ (function () {
         this.pet = 'puppies';
     }
     RainbowPage.prototype.ionViewDidLoad = function () {
+        this.uinImgMap.set('2425936375', 'assets/imgs/biaobai.jpg');
+        this.uinImgMap.set('449338017', 'assets/imgs/tieba.jpg');
         console.log('ionViewDidLoad RainbowPage');
         this.getRemoteData();
         // this.http.get("http://b19.photo.store.qq.com/psb?/V11Xtz6l1embFM/qclOwClV.YrQxM6pWmyM8EGOas4fC01aG4V4.CodSFs!/b/dBMAAAAAAAAA&amp;bo=hwOTA4cDkwMRECc!").subscribe(res => {
@@ -577,9 +580,10 @@ var RainbowPage = /** @class */ (function () {
                 _this.biaobaiList.map(function (item) {
                     // item.createTime = timestampToTime(item.createTime.$date);
                     item.content = item.content;
-                    item.authorImg = 'assets/imgs/biaobai.jpg';
-                    item.authorName = '表白墙';
+                    item.authorImg = _this.uinImgMap.get(item.uin);
+                    // item.authorName = '表白墙';
                     item.info = JSON.parse(item.info);
+                    item.authorName = item.info['name'];
                     console.log(item);
                     return item;
                 });
@@ -630,16 +634,12 @@ var RainbowPage = /** @class */ (function () {
     };
     RainbowPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-rainbow',template:/*ion-inline-start:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/pages/rainbow/rainbow.html"*/'<!--\n  Generated template for the RainbowPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-toolbar>\n\n    <ion-grid>\n      <ion-row>\n        <ion-col col-2 style="display: flex;justify-content: center;align-items: center">\n          <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n          </button>\n        </ion-col>\n        <ion-col>\n\n          <ion-segment [(ngModel)]="pet">\n\n            <ion-segment-button value="puppies">\n              favorite\n              <!--<ion-icon name="bookmark"></ion-icon>-->\n            </ion-segment-button>\n\n            <!--<ion-segment-button value=\'let\'>menu</ion-segment-button>-->\n            <ion-segment-button value="kittens">\n              <!--<ion-icon name="bookmark"></ion-icon>-->\n              music\n            </ion-segment-button>\n\n          </ion-segment>\n\n        </ion-col>\n        <ion-col col-2></ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-toolbar>\n  <!--<ion-navbar>-->\n    <!--<button ion-button menuToggle>-->\n      <!--<ion-icon name="menu"></ion-icon>-->\n    <!--</button>-->\n    <!--<ion-title>Rainbow</ion-title>-->\n  <!--</ion-navbar>-->\n\n</ion-header>\n<!--<ion-header>-->\n\n  <!--<ion-navbar>-->\n    <!--<ion-title>rainbow</ion-title>-->\n  <!--</ion-navbar>-->\n\n<!--</ion-header>-->\n\n\n<ion-content>\n\n  <!--<img [src]="srctest" alt="">-->\n\n  <!--<div padding ion-fixed style="width: 100%;background-color: red;">-->\n    <!--<ion-segment [(ngModel)]="pet">-->\n      <!--<ion-segment-button>menu</ion-segment-button>-->\n      <!--<ion-segment-button value="kittens">-->\n        <!--Kittens-->\n      <!--</ion-segment-button>-->\n      <!--<ion-segment-button value="puppies">-->\n        <!--Puppies-->\n      <!--</ion-segment-button>-->\n    <!--</ion-segment>-->\n  <!--</div>-->\n  <!--<div padding>-->\n    <!--<ion-segment>-->\n      <!--<ion-segment-button></ion-segment-button>-->\n    <!--</ion-segment>-->\n  <!--</div>-->\n\n  <div [ngSwitch]="pet" padding-top>\n    <ion-list *ngSwitchCase="\'puppies\'">\n      <a [href]="urlFilter(item.url)" ion-item *ngFor="let item of favorite">\n        {{ item.title }}\n      </a>\n    </ion-list>\n\n    <ion-list *ngSwitchCase="\'kittens\'">\n      <ion-card *ngFor="let item of biaobaiList">\n        <qzone-emotion [emotion]="item">\n\n        </qzone-emotion>\n        <!--<div [innerHTML]="parseHtml.strDiscode(item.content)"></div>-->\n      </ion-card>\n      <!--<button ion-item *ngFor="let item of favorite" (click)="browMusic(item.url)">-->\n      <!--{{ item.title }}-->\n      <!--</button>-->\n    </ion-list>\n  </div>\n\n  <ion-list inset>\n\n\n    <!--<button ion-item *ngFor="let item of favorite" (click)="browMusic(item.url)">-->\n      <!--{{ item.title }}-->\n    <!--</button>-->\n\n    <!--<a [href]="urlFilter(item.url)" ion-item *ngFor="let item of favorite">-->\n      <!--{{ \'a ->\' + item.title }}-->\n    <!--</a>-->\n  </ion-list>\n\n  <!--<ion-card *ngFor="let item of favorite">-->\n    <!--<a [href]="item.url">{{item.title}}</a>-->\n    <!--<button ion-button (click)="browMusic(item.url)">show browser</button>-->\n  <!--</ion-card>-->\n\n</ion-content>\n'/*ion-inline-end:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/pages/rainbow/rainbow.html"*/,
+            selector: 'page-rainbow',template:/*ion-inline-start:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/pages/rainbow/rainbow.html"*/'<!--\n  Generated template for the RainbowPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n  <ion-toolbar>\n\n    <ion-grid>\n      <ion-row>\n        <ion-col col-2 style="display: flex;justify-content: center;align-items: center">\n          <button ion-button menuToggle>\n            <ion-icon name="menu"></ion-icon>\n          </button>\n        </ion-col>\n        <ion-col>\n\n          <ion-segment [(ngModel)]="pet">\n\n            <ion-segment-button value="puppies">\n              甜甜的歌\n              <!--<ion-icon name="bookmark"></ion-icon>-->\n            </ion-segment-button>\n\n            <!--<ion-segment-button value=\'let\'>menu</ion-segment-button>-->\n            <ion-segment-button value="kittens">\n              <!--<ion-icon name="bookmark"></ion-icon>-->\n              暖暖的事\n            </ion-segment-button>\n\n          </ion-segment>\n\n        </ion-col>\n        <ion-col col-2></ion-col>\n      </ion-row>\n    </ion-grid>\n\n  </ion-toolbar>\n  <!--<ion-navbar>-->\n    <!--<button ion-button menuToggle>-->\n      <!--<ion-icon name="menu"></ion-icon>-->\n    <!--</button>-->\n    <!--<ion-title>Rainbow</ion-title>-->\n  <!--</ion-navbar>-->\n\n</ion-header>\n<!--<ion-header>-->\n\n  <!--<ion-navbar>-->\n    <!--<ion-title>rainbow</ion-title>-->\n  <!--</ion-navbar>-->\n\n<!--</ion-header>-->\n\n\n<ion-content>\n\n  <!--<img [src]="srctest" alt="">-->\n\n  <!--<div padding ion-fixed style="width: 100%;background-color: red;">-->\n    <!--<ion-segment [(ngModel)]="pet">-->\n      <!--<ion-segment-button>menu</ion-segment-button>-->\n      <!--<ion-segment-button value="kittens">-->\n        <!--Kittens-->\n      <!--</ion-segment-button>-->\n      <!--<ion-segment-button value="puppies">-->\n        <!--Puppies-->\n      <!--</ion-segment-button>-->\n    <!--</ion-segment>-->\n  <!--</div>-->\n  <!--<div padding>-->\n    <!--<ion-segment>-->\n      <!--<ion-segment-button></ion-segment-button>-->\n    <!--</ion-segment>-->\n  <!--</div>-->\n\n  <div [ngSwitch]="pet" padding-top>\n    <ion-list *ngSwitchCase="\'puppies\'">\n      <a [href]="urlFilter(item.url)" ion-item *ngFor="let item of favorite">\n        {{ item.title }}\n      </a>\n    </ion-list>\n\n    <ion-list *ngSwitchCase="\'kittens\'">\n      <sw-loading *ngIf="!biaobaiList"></sw-loading>\n      <ion-card *ngFor="let item of biaobaiList">\n        <qzone-emotion [emotion]="item">\n\n        </qzone-emotion>\n        <!--<div [innerHTML]="parseHtml.strDiscode(item.content)"></div>-->\n      </ion-card>\n      <!--<button ion-item *ngFor="let item of favorite" (click)="browMusic(item.url)">-->\n      <!--{{ item.title }}-->\n      <!--</button>-->\n    </ion-list>\n  </div>\n\n  <ion-list inset>\n\n\n    <!--<button ion-item *ngFor="let item of favorite" (click)="browMusic(item.url)">-->\n      <!--{{ item.title }}-->\n    <!--</button>-->\n\n    <!--<a [href]="urlFilter(item.url)" ion-item *ngFor="let item of favorite">-->\n      <!--{{ \'a ->\' + item.title }}-->\n    <!--</a>-->\n  </ion-list>\n\n  <!--<ion-card *ngFor="let item of favorite">-->\n    <!--<a [href]="item.url">{{item.title}}</a>-->\n    <!--<button ion-button (click)="browMusic(item.url)">show browser</button>-->\n  <!--</ion-card>-->\n\n</ion-content>\n'/*ion-inline-end:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/pages/rainbow/rainbow.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_in_app_browser__["a" /* InAppBrowser */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_browser_tab__["a" /* BrowserTab */],
-            __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_parse_html_parse_html__["a" /* ParseHtmlProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_in_app_browser__["a" /* InAppBrowser */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_in_app_browser__["a" /* InAppBrowser */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_browser_tab__["a" /* BrowserTab */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_browser_tab__["a" /* BrowserTab */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClient */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__providers_parse_html_parse_html__["a" /* ParseHtmlProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_parse_html_parse_html__["a" /* ParseHtmlProvider */]) === "function" && _f || Object])
     ], RainbowPage);
     return RainbowPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=rainbow.js.map
@@ -668,11 +668,11 @@ webpackEmptyAsyncContext.id = 142;
 
 var map = {
 	"../pages/preview-image/preview-image.module": [
-		412,
+		413,
 		1
 	],
 	"../pages/rainbow/rainbow.module": [
-		413,
+		414,
 		0
 	]
 };
@@ -884,10 +884,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__angular_common_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_parse_html_parse_html__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_components_module__ = __webpack_require__(407);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_sweet_net_sweet_net__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_sweet_net_sweet_net__ = __webpack_require__(411);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__providers_qzone_image_deal_qzone_image_deal__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_preview_image_preview_image__ = __webpack_require__(131);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_testpipe_testpipe__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_testpipe_testpipe__ = __webpack_require__(412);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1192,6 +1192,7 @@ var BackButtonProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__qq_emotion_qq_emotion__ = __webpack_require__(408);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__ = __webpack_require__(409);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__sw_loading_sw_loading__ = __webpack_require__(410);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1202,18 +1203,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var ComponentsModule = /** @class */ (function () {
     function ComponentsModule() {
     }
     ComponentsModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [__WEBPACK_IMPORTED_MODULE_1__qq_emotion_qq_emotion__["a" /* QqEmotionComponent */],
-                __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__["a" /* QzoneEmotionComponent */]],
+                __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__["a" /* QzoneEmotionComponent */],
+                __WEBPACK_IMPORTED_MODULE_4__sw_loading_sw_loading__["a" /* SwLoadingComponent */]],
             imports: [__WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */]],
             exports: [__WEBPACK_IMPORTED_MODULE_1__qq_emotion_qq_emotion__["a" /* QqEmotionComponent */],
-                __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__["a" /* QzoneEmotionComponent */]],
+                __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__["a" /* QzoneEmotionComponent */],
+                __WEBPACK_IMPORTED_MODULE_4__sw_loading_sw_loading__["a" /* SwLoadingComponent */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_2__qzone_emotion_qzone_emotion__["a" /* QzoneEmotionComponent */],
+                __WEBPACK_IMPORTED_MODULE_4__sw_loading_sw_loading__["a" /* SwLoadingComponent */]
             ]
         })
     ], ComponentsModule);
@@ -1324,7 +1329,7 @@ var QzoneEmotionComponent = /** @class */ (function () {
     ], QzoneEmotionComponent.prototype, "emotion", void 0);
     QzoneEmotionComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'qzone-emotion',template:/*ion-inline-start:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/qzone-emotion/qzone-emotion.html"*/'<!--component/emotion/emotion.wxml-->\n<div class=\'emotion-item\'>\n  <div class=\'author\'>\n    <img  class=\'author-img\' [src]=\'emotion.authorImg\'>\n\n    <div [innerHTML]="parseHtml.strDiscode(emotion.author)"></div>\n    <!--<rich-text nodes=\'{{emotion.author}}\'></rich-text>-->\n  </div>\n  <div class=\'emotion-body\'>\n    <!-- <rich-text nodes=\'{{emotion.author}}\'></rich-text> -->\n    <!-- <view class=\'author-name\'>{{emotion.info.name}}</view> -->\n    <div  class=\'emotion-content\'>\n      <!--<rich-text nodes=\'{{emotion.content}}\'></rich-text>-->\n      <div [innerHTML]="parseHtml.strDiscode(emotion.content)"></div>\n\n      <div class="img-wrapper">\n\n        <!--<div *ngFor="let item of emotion.info.video">-->\n          <!--<img class=\'upload-img\' [src]="imgUtil.deal(item.url1)" >-->\n        <!--</div>-->\n\n        <div *ngFor="let item of emotion.info.pic">\n          <img class=\'upload-img\' *ngIf="!item.is_video" [src]="imgUtil.deal(item.smallurl)" (click)="previewImage(item.smallurl)" >\n          <img *ngIf="item.is_video" class=\'upload-img\' [src]="imgUtil.deal(item.url1)" (click)="previewImage(item.url1)">\n        </div>\n\n      </div>\n\n\n      <div>\n        <div class=\'comment\' *ngFor="let item of emotion.info.commentlist">\n          <div class=\'comment-name\' [innerHTML]="parseHtml.strDiscode(item.name)"></div> ：\n\n          <div class=\'comment-content\' [innerHTML]="parseHtml.strDiscode(item.content)"></div>\n\n          <!--<rich-text class=\'comment-name\' nodes=\'{{item.name}}\'></rich-text>：-->\n          <!--<rich-text class=\'comment-content\' nodes=\'{{item.content}}\'></rich-text>-->\n        </div>\n        <!-- <block >\n\n          <br/>\n        </block> -->\n      </div>\n    </div>\n  </div>\n</div>\n'/*ion-inline-end:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/qzone-emotion/qzone-emotion.html"*/
+            selector: 'qzone-emotion',template:/*ion-inline-start:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/qzone-emotion/qzone-emotion.html"*/'<!--component/emotion/emotion.wxml-->\n<div class=\'emotion-item\'>\n  <div class=\'author\'>\n    <img  class=\'author-img\' [src]=\'emotion.authorImg\'>\n\n    <div [innerHTML]="parseHtml.strDiscode(emotion.authorName)"></div>\n    <!--<rich-text nodes=\'{{emotion.author}}\'></rich-text>-->\n  </div>\n  <div class=\'emotion-body\'>\n    <!-- <rich-text nodes=\'{{emotion.author}}\'></rich-text> -->\n    <!-- <view class=\'author-name\'>{{emotion.info.name}}</view> -->\n    <div  class=\'emotion-content\'>\n      <!--<rich-text nodes=\'{{emotion.content}}\'></rich-text>-->\n      <div [innerHTML]="parseHtml.strDiscode(emotion.content)"></div>\n\n      <div class="img-wrapper">\n\n        <!--<div *ngFor="let item of emotion.info.video">-->\n          <!--<img class=\'upload-img\' [src]="imgUtil.deal(item.url1)" >-->\n        <!--</div>-->\n\n        <div *ngFor="let item of emotion.info.pic">\n          <img class=\'upload-img\' *ngIf="!item.is_video" [src]="imgUtil.deal(item.smallurl)" (click)="previewImage(item.smallurl)" >\n          <img *ngIf="item.is_video" class=\'upload-img\' [src]="imgUtil.deal(item.url1)" (click)="previewImage(item.url1)">\n        </div>\n\n      </div>\n\n\n      <div>\n        <div class=\'comment\' *ngFor="let item of emotion.info.commentlist">\n          <div class=\'comment-name\' [innerHTML]="parseHtml.strDiscode(item.name)"></div> ：\n\n          <div class=\'comment-content\' [innerHTML]="parseHtml.strDiscode(item.content)"></div>\n\n          <!--<rich-text class=\'comment-name\' nodes=\'{{item.name}}\'></rich-text>：-->\n          <!--<rich-text class=\'comment-content\' nodes=\'{{item.content}}\'></rich-text>-->\n        </div>\n        <!-- <block >\n\n          <br/>\n        </block> -->\n      </div>\n    </div>\n  </div>\n</div>\n'/*ion-inline-end:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/qzone-emotion/qzone-emotion.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_parse_html_parse_html__["a" /* ParseHtmlProvider */], __WEBPACK_IMPORTED_MODULE_2__providers_qzone_image_deal_qzone_image_deal__["a" /* QzoneImageDealProvider */],
             __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* NavController */]])
@@ -1337,6 +1342,46 @@ var QzoneEmotionComponent = /** @class */ (function () {
 /***/ }),
 
 /***/ 410:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SwLoadingComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+/**
+ * Generated class for the SwLoadingComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
+var SwLoadingComponent = /** @class */ (function () {
+    function SwLoadingComponent() {
+        console.log('Hello SwLoadingComponent Component');
+        this.text = 'Hello World';
+    }
+    SwLoadingComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'sw-loading',template:/*ion-inline-start:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/sw-loading/sw-loading.html"*/'<!-- Generated template for the SwLoadingComponent component -->\n<div class="spinner">\n  <div class="bounce1"></div>\n  <div class="bounce2"></div>\n  <div class="bounce3"></div>\n</div>\n'/*ion-inline-end:"/Users/anshi/Desktop/resource/anshi/ionic-blog/src/components/sw-loading/sw-loading.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], SwLoadingComponent);
+    return SwLoadingComponent;
+}());
+
+//# sourceMappingURL=sw-loading.js.map
+
+/***/ }),
+
+/***/ 411:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1421,7 +1466,7 @@ var SweetNetProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 411:
+/***/ 412:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

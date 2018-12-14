@@ -22,6 +22,8 @@ declare var ROOT_URL;
 export class RainbowPage {
   biaobaiList = [];
 
+  uinImgMap = new Map()
+
   favorite = [
     {
       title: '无与伦比的美丽',
@@ -260,6 +262,9 @@ export class RainbowPage {
   srctest = ROOT_URL + '/sys/picture?url='+ encodeURIComponent('http://b19.photo.store.qq.com/psb?/V11Xtz6l1embFM/qclOwClV.YrQxM6pWmyM8EGOas4fC01aG4V4.CodSFs!/b/dBMAAAAAAAAA&amp;bo=hwOTA4cDkwMRECc!');
 
   ionViewDidLoad() {
+
+    this.uinImgMap.set('2425936375','assets/imgs/biaobai.jpg')
+    this.uinImgMap.set('449338017','assets/imgs/tieba.jpg')
     console.log('ionViewDidLoad RainbowPage');
     this.getRemoteData();
 
@@ -281,9 +286,10 @@ export class RainbowPage {
         this.biaobaiList.map(item => {
           // item.createTime = timestampToTime(item.createTime.$date);
           item.content = item.content;
-          item.authorImg = 'assets/imgs/biaobai.jpg';
-          item.authorName = '表白墙';
+          item.authorImg = this.uinImgMap.get(item.uin);
+          // item.authorName = '表白墙';
           item.info = JSON.parse(item.info)
+          item.authorName = item.info['name']
           console.log(item)
           return item;
         })
