@@ -8,7 +8,7 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {MarkdownModule} from "ngx-markdown";
+// import {MarkdownModule} from "ngx-markdown";
 import {RainbowPage} from "../pages/rainbow/rainbow";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {BrowserTab} from "@ionic-native/browser-tab";
@@ -40,7 +40,7 @@ const INTERCEPTOR_PROVIDES = [
     BrowserModule,
     HttpClientModule,
     ComponentsModule,
-    MarkdownModule.forRoot(),
+    // MarkdownModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
